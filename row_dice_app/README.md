@@ -1,4 +1,4 @@
-# first_app
+# row_dice_app
 First Flutter project.
 
 
