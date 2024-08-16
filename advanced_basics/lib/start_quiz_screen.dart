@@ -1,9 +1,10 @@
+import 'package:advanced_basics/routes.dart';
 import 'package:flutter/material.dart';
 
-class StartQuizeScreen extends StatelessWidget {
-  final void Function() startQuiz;
+class StartQuizScreen extends StatelessWidget {
+  final void Function(String screen) startQuiz;
 
-  const StartQuizeScreen(this.startQuiz, {super.key});
+  const StartQuizScreen(this.startQuiz, {super.key});
 
   @override
   Widget build(BuildContext context) =>
@@ -19,7 +20,9 @@ class StartQuizeScreen extends StatelessWidget {
             'Learn Flutter the fun way!'),
         const SizedBox(height: 32),
         ElevatedButton.icon(
-          onPressed: startQuiz,
+          onPressed: () {
+            startQuiz(Routes.questionsScreen);
+          },
           icon: const Icon(Icons.arrow_forward_ios_outlined),
           label: const Text(style: TextStyle(fontSize: 18), 'Start Quiz'),
         ),
