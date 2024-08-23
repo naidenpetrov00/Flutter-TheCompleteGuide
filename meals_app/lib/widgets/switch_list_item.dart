@@ -1,35 +1,40 @@
 import 'package:flutter/material.dart';
-import 'package:meals_app/screens/filters_screen.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:meals_app/providers/filters_provider.dart';
 
-class SwitchListItem extends StatefulWidget {
+class SwitchListItem extends ConsumerStatefulWidget {
   final String title;
-  final void Function(String title, bool selected) onSwicth;
-  bool initState;
+  final bool initState;
 
-  SwitchListItem({
+  const SwitchListItem({
     super.key,
     required this.title,
-    required this.onSwicth,
     required this.initState,
   });
 
   @override
-  State<StatefulWidget> createState() => _SwitchListItem();
+  ConsumerState<ConsumerStatefulWidget> createState() => _SwitchListItem();
 }
 
-class _SwitchListItem extends State<SwitchListItem> {
+class _SwitchListItem extends ConsumerState<SwitchListItem> {
+  bool _currState = false;
+
+  @override
+  void initState() {
+    super.initState();
+    _currState = widget.initState;
+  }
+
   @override
   Widget build(BuildContext context) => SwitchListTile(
         activeColor: Theme.of(context).colorScheme.tertiary,
         contentPadding: const EdgeInsets.only(left: 32, right: 24),
-        value: widget.initState,
+        value: _currState,
         onChanged: (isChecked) {
-          widget.onSwicth(widget.title, isChecked);
-          setState(
-            () {
-              widget.initState = isChecked;
-            },
-          );
+          _currState = isChecked;
+          ref
+              .read(filterProvider.notifier)
+              .setFilterByTitle(widget.title, isChecked);
         },
         title: Text(
           widget.title,

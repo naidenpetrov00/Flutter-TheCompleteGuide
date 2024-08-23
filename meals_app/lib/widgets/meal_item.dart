@@ -6,10 +6,9 @@ import 'package:transparent_image/transparent_image.dart';
 
 class MealItem extends StatelessWidget {
   final Meal meal;
-  final void Function(Meal meal) onToggleFavorite;
 
   const MealItem(
-      {super.key, required this.meal, required this.onToggleFavorite});
+      {super.key, required this.meal});
 
   String _getTextWithFirstLetterUpperCase(String text) =>
       text[0].toUpperCase() + text.substring(1);
@@ -19,7 +18,6 @@ class MealItem extends StatelessWidget {
       MaterialPageRoute(
         builder: (detailsContext) => MealDetailsScreen(
           meal: meal,
-          onToggleFavorite: onToggleFavorite,
         ),
       ),
     );
