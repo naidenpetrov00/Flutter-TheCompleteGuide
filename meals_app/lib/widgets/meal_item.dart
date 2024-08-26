@@ -7,8 +7,7 @@ import 'package:transparent_image/transparent_image.dart';
 class MealItem extends StatelessWidget {
   final Meal meal;
 
-  const MealItem(
-      {super.key, required this.meal});
+  const MealItem({super.key, required this.meal});
 
   String _getTextWithFirstLetterUpperCase(String text) =>
       text[0].toUpperCase() + text.substring(1);
@@ -35,12 +34,15 @@ class MealItem extends StatelessWidget {
           onTap: () => _goToDetails(context),
           child: Stack(
             children: [
-              FadeInImage(
-                fit: BoxFit.cover,
-                height: 200,
-                width: double.infinity,
-                placeholder: MemoryImage(kTransparentImage),
-                image: NetworkImage(meal.imageUrl),
+              Hero(
+                tag: meal.id,
+                child: FadeInImage(
+                  fit: BoxFit.cover,
+                  height: 200,
+                  width: double.infinity,
+                  placeholder: MemoryImage(kTransparentImage),
+                  image: NetworkImage(meal.imageUrl),
+                ),
               ),
               Positioned(
                 bottom: 0,
