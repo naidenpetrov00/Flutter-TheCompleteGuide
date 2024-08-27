@@ -1,5 +1,9 @@
 # Flutter-TheCompleteGuide
 
+[meals app:](./meals_app)
+
+https://github.com/user-attachments/assets/db0dd8fc-3eb3-450f-87ad-ef9a50b9285b
+
 [expense_tracker:](./expense_tracker)
 
 https://github.com/user-attachments/assets/ab590d3e-67e5-4166-8e80-2a3df33d1b36
