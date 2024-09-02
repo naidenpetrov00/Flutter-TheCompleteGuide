@@ -2,7 +2,7 @@ import 'package:shopping_list_app/data/categories.dart';
 import 'package:shopping_list_app/enums/category.dart';
 import 'package:shopping_list_app/models/grocery_item.dart';
 
-var groceryItems = [
+final groceryItems = [
   GroceryItem(
       id: 'a',
       name: 'Milk',
