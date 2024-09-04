@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:shopping_list_app/data/categories.dart';
 import 'package:shopping_list_app/enums/category.dart';
+import 'package:shopping_list_app/models/grocery_item.dart';
 
 class NewItem extends StatefulWidget {
   const NewItem({super.key});
@@ -18,7 +19,14 @@ class _NewItem extends State<NewItem> {
   void _saveItem() {
     if (_formKey.currentState!.validate()) {
       _formKey.currentState!.save();
-      print(_enteredName);
+      Navigator.of(context).pop(
+        GroceryItem(
+          id: DateTime.now().toString(),
+          name: _enteredName,
+          quantity: _enteredQuantity,
+          category: _selectedCatgory,
+        ),
+      );
     }
   }
 
@@ -40,7 +48,7 @@ class _NewItem extends State<NewItem> {
                 validator: (value) {
                   if (value == null ||
                       value.isEmpty ||
-                      value.trim().length <= 2 ||
+                      value.trim().length < 2 ||
                       value.trim().length > 50) {
                     return 'Must be between 2 and 50';
                   }
