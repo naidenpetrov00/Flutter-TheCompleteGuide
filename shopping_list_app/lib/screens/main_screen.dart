@@ -18,13 +18,20 @@ class MainScreen extends StatefulWidget {
 
 class _MainScreenState extends State<MainScreen> {
   List<GroceryItem> _groceryItems = [];
-  final url = Uri.https(
-    'shoppinglist-2af1a-default-rtdb.europe-west1.firebasedatabase.app',
-    'shopping_list.json',
-  );
+  var _isLoading = true;
+  String? _error;
 
   void _loadItems() async {
+    final url = Uri.https(
+      'shoppinglist-2af1a-default-rtdb.europe-west1.firebasedatabase.app',
+      'shopping_list.json',
+    );
     final response = await http.get(url);
+    if (response.statusCode >= 400) {
+      setState(() {
+        _error = "Failed To Fecth Data";
+      });
+    }
     final Map<String, dynamic> itemsData = json.decode(response.body);
     final List<GroceryItem> fetchedItems = [];
     for (var itemData in itemsData.entries) {
@@ -39,6 +46,7 @@ class _MainScreenState extends State<MainScreen> {
     }
     setState(() {
       _groceryItems = fetchedItems;
+      _isLoading = false;
     });
   }
 
@@ -65,30 +73,41 @@ class _MainScreenState extends State<MainScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        actions: [
-          IconButton(
-            onPressed: _addItem,
-            icon: const Icon(Icons.add),
-          ),
-        ],
-        backgroundColor: Theme.of(context).colorScheme.onPrimary,
-        title: Text(
-          'Your Grocceries',
-          style: Theme.of(context).textTheme.headlineSmall,
+    Widget bodyContent;
+
+    if (_isLoading) {
+      bodyContent = const Center(child: CircularProgressIndicator());
+    } else if (_groceryItems.isEmpty) {
+      bodyContent = Center(
+        child: Text(
+          'You have no Items...',
+          style: Theme.of(context).textTheme.bodyLarge,
         ),
-      ),
-      body: _groceryItems.isEmpty
-          ? Center(
-              child: Text(
-                'You have no Items...',
-                style: Theme.of(context).textTheme.bodyLarge,
-              ),
-            )
-          : GroceryItems(
-              groceryItems: _groceryItems,
+      );
+    } else {
+      bodyContent = GroceryItems(groceryItems: _groceryItems);
+    }
+
+    if (_error != null) {
+      bodyContent = Center(
+        child: Text(_error!),
+      );
+    }
+
+    return Scaffold(
+        appBar: AppBar(
+          actions: [
+            IconButton(
+              onPressed: _addItem,
+              icon: const Icon(Icons.add),
             ),
-    );
+          ],
+          backgroundColor: Theme.of(context).colorScheme.onPrimary,
+          title: Text(
+            'Your Grocceries',
+            style: Theme.of(context).textTheme.headlineSmall,
+          ),
+        ),
+        body: bodyContent);
   }
 }
