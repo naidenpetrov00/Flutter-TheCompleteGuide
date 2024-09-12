@@ -1,5 +1,9 @@
 # Flutter-TheCompleteGuide
 
+[shopping list app:](./shopping_list_app)
+
+https://github.com/user-attachments/assets/a3a326b5-ed5b-4f18-9c5e-832f211d1f3d
+
 [meals app:](./meals_app)
 
 https://github.com/user-attachments/assets/db0dd8fc-3eb3-450f-87ad-ef9a50b9285b
