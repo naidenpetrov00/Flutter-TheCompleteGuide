@@ -16,13 +16,14 @@ class _GroceryItemsState extends State<GroceryItems> {
   void _removeItem(GroceryItem item) async {
     final index = widget.groceryItems.indexOf(item);
     final url = Uri.https(
-      'hoppinglist-2af1a-default-rtdb.europe-west1.firebasedatabase.app',
+      'shoppinglist-2af1a-default-rtdb.europe-west1.firebasedatabase.app',
       'shopping_list/${item.id}.json',
     );
     setState(() {
       widget.groceryItems.remove(item);
     });
     final response = await http.delete(url);
+
     if (response.statusCode >= 400) {
       if (!mounted) {
         return;

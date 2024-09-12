@@ -32,6 +32,12 @@ class _MainScreenState extends State<MainScreen> {
         _error = "Failed To Fecth Data";
       });
     }
+    if (response.body == 'null') {
+      setState(() {
+        _isLoading = false;
+      });
+      return;
+    }
     final Map<String, dynamic> itemsData = json.decode(response.body);
     final List<GroceryItem> fetchedItems = [];
     for (var itemData in itemsData.entries) {
