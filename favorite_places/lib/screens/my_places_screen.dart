@@ -1,3 +1,4 @@
+import 'package:favorite_places/screens/add_place_screen.dart';
 import 'package:flutter/material.dart';
 
 class MyPlacesScreen extends StatelessWidget {
@@ -6,11 +7,16 @@ class MyPlacesScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) => Scaffold(
         appBar: AppBar(
-          backgroundColor: Theme.of(context).colorScheme.surface,
           title: const Text('Your Places'),
           actions: [
             IconButton(
-              onPressed: () {},
+              onPressed: () {
+                Navigator.of(context).push(
+                  MaterialPageRoute(
+                    builder: (addPlaceScreenContext) => const AddPlaceScreen(),
+                  ),
+                );
+              },
               icon: const Icon(Icons.add),
             ),
           ],

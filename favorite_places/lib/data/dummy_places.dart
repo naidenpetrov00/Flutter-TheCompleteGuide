@@ -1,0 +1,1 @@
+final dummyPlaces = ['Sofia', 'Varna'];

@@ -10,20 +10,21 @@ final colorScheme = ColorScheme.fromSeed(
 );
 
 final theme = ThemeData().copyWith(
-  scaffoldBackgroundColor: colorScheme.surface,
-  colorScheme: colorScheme,
-  textTheme: GoogleFonts.ubuntuCondensedTextTheme().copyWith(
-    titleSmall: GoogleFonts.ubuntuCondensed(
-      fontWeight: FontWeight.bold,
+    scaffoldBackgroundColor: colorScheme.surface,
+    colorScheme: colorScheme,
+    textTheme: GoogleFonts.ubuntuCondensedTextTheme().copyWith(
+      titleSmall: GoogleFonts.ubuntuCondensed(
+        fontWeight: FontWeight.bold,
+      ),
+      titleMedium: GoogleFonts.ubuntuCondensed(
+        fontWeight: FontWeight.bold,
+      ),
+      titleLarge: GoogleFonts.ubuntuCondensed(
+        fontWeight: FontWeight.bold,
+      ),
     ),
-    titleMedium: GoogleFonts.ubuntuCondensed(
-      fontWeight: FontWeight.bold,
-    ),
-    titleLarge: GoogleFonts.ubuntuCondensed(
-      fontWeight: FontWeight.bold,
-    ),
-  ),
-);
+    appBarTheme:
+        const AppBarTheme().copyWith(backgroundColor: colorScheme.onSecondary));
 
 void main() {
   runApp(
