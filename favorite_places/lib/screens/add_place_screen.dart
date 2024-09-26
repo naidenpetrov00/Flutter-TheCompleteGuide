@@ -1,3 +1,4 @@
+import 'package:favorite_places/models/place.dart';
 import 'package:favorite_places/providers/places_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -12,7 +13,8 @@ class AddPlaceScreen extends ConsumerStatefulWidget {
 class _AddPlaceScreenState extends ConsumerState<AddPlaceScreen> {
   final _formKey = GlobalKey<FormState>();
 
-  late List<String> places;
+  final _titleController = TextEditingController();
+  late List<Place> places;
   var _title = '';
   var _isSendingTheData = false;
 
@@ -23,8 +25,17 @@ class _AddPlaceScreenState extends ConsumerState<AddPlaceScreen> {
         _isSendingTheData = true;
       });
 
-      Navigator.of(context).pop(_title);
+      Navigator.of(context).pop(
+        Place(title: _title),
+      );
     }
+  }
+
+  @override
+  void dispose() {
+    // TODO: implement dispose
+    super.dispose();
+    _titleController.dispose();
   }
 
   @override
@@ -36,13 +47,18 @@ class _AddPlaceScreenState extends ConsumerState<AddPlaceScreen> {
         title: const Text('Add new place'),
       ),
       body: Form(
-          key: _formKey,
+        key: _formKey,
+        child: SingleChildScrollView(
+          padding: const EdgeInsets.all(12),
           child: Column(
             children: [
               TextFormField(
                 decoration: const InputDecoration(
                   label: Text('Title'),
                 ),
+                style:
+                    TextStyle(color: Theme.of(context).colorScheme.onSurface),
+                controller: _titleController,
                 validator: (value) {
                   if (value == null ||
                       value.isEmpty ||
@@ -54,12 +70,18 @@ class _AddPlaceScreenState extends ConsumerState<AddPlaceScreen> {
                 },
                 onSaved: (value) => _title = value!,
               ),
-              ElevatedButton(
+              const SizedBox(
+                height: 16,
+              ),
+              ElevatedButton.icon(
                 onPressed: _isSendingTheData ? null : _saveItem,
-                child: const Text('Add Item'),
+                label: const Text('Add Item'),
+                icon: const Icon(Icons.add),
               ),
             ],
-          )),
+          ),
+        ),
+      ),
     );
   }
 }
