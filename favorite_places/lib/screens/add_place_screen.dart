@@ -18,12 +18,17 @@ class _AddPlaceScreenState extends ConsumerState<AddPlaceScreen> {
   var _title = '';
   var _isSendingTheData = false;
 
-  void _saveItem() {
+  void _saveItem() async {
     if (_formKey.currentState!.validate()) {
-      _formKey.currentState!.save();
       setState(() {
         _isSendingTheData = true;
       });
+      final enteredTitle = _titleController.text;
+      if (enteredTitle.isEmpty) {
+        return;
+      }
+
+      ref.read(placesProvider.notifier).addPlace(Place(title: enteredTitle));
 
       Navigator.of(context).pop(
         Place(title: _title),
@@ -40,8 +45,6 @@ class _AddPlaceScreenState extends ConsumerState<AddPlaceScreen> {
 
   @override
   Widget build(BuildContext context) {
-    places = ref.watch(placesProvider);
-
     return Scaffold(
       appBar: AppBar(
         title: const Text('Add new place'),
@@ -75,7 +78,9 @@ class _AddPlaceScreenState extends ConsumerState<AddPlaceScreen> {
               ),
               ElevatedButton.icon(
                 onPressed: _isSendingTheData ? null : _saveItem,
-                label: const Text('Add Item'),
+                label: _isSendingTheData
+                    ? const CircularProgressIndicator()
+                    : const Text('Add Item'),
                 icon: const Icon(Icons.add),
               ),
             ],

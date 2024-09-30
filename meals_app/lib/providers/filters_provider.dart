@@ -8,7 +8,7 @@ enum Filter {
   vegan,
 }
 
-var initState = {
+const initState = {
   Filter.gluttenFree: false,
   Filter.lactoseFree: false,
   Filter.vegeterian: false,

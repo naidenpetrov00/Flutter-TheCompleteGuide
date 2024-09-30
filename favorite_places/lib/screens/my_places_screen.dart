@@ -5,37 +5,25 @@ import 'package:favorite_places/widgets/places_list.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-class MyPlacesScreen extends ConsumerStatefulWidget {
+class MyPlacesScreen extends ConsumerWidget {
   const MyPlacesScreen({super.key});
 
   @override
-  ConsumerState<ConsumerStatefulWidget> createState() => _MyPlacesScreenState();
-}
-
-class _MyPlacesScreenState extends ConsumerState {
-  void _onAddPlaceClick(WidgetRef ref) async {
-    final place = await Navigator.of(context).push<Place>(
-      MaterialPageRoute(
-        builder: (addPlaceScreenContext) => const AddPlaceScreen(),
-      ),
-    );
-
-    setState(
-      () {
-        ref.read(placesProvider).add(place!);
-      },
-    );
-  }
-
-  @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
     final places = ref.watch(placesProvider);
+
     return Scaffold(
         appBar: AppBar(
           title: const Text('Your Places'),
           actions: [
             IconButton(
-              onPressed: () => _onAddPlaceClick(ref),
+              onPressed: () => {
+                Navigator.of(context).push<Place>(
+                  MaterialPageRoute(
+                    builder: (addPlaceScreenContext) => const AddPlaceScreen(),
+                  ),
+                )
+              },
               icon: const Icon(Icons.add),
             ),
           ],
