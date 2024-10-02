@@ -13,21 +13,25 @@ class MyPlacesScreen extends ConsumerWidget {
     final places = ref.watch(placesProvider);
 
     return Scaffold(
-        appBar: AppBar(
-          title: const Text('Your Places'),
-          actions: [
-            IconButton(
-              onPressed: () => {
-                Navigator.of(context).push<Place>(
-                  MaterialPageRoute(
-                    builder: (addPlaceScreenContext) => const AddPlaceScreen(),
-                  ),
-                )
-              },
-              icon: const Icon(Icons.add),
-            ),
-          ],
-        ),
-        body: PlacesList(places: places));
+      appBar: AppBar(
+        title: const Text('Your Places'),
+        actions: [
+          IconButton(
+            onPressed: () => {
+              Navigator.of(context).push<Place>(
+                MaterialPageRoute(
+                  builder: (addPlaceScreenContext) => const AddPlaceScreen(),
+                ),
+              )
+            },
+            icon: const Icon(Icons.add),
+          ),
+        ],
+      ),
+      body: Padding(
+        padding: const EdgeInsets.all(8),
+        child: PlacesList(places: places),
+      ),
+    );
   }
 }

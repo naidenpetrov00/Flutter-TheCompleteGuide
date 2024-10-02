@@ -33,6 +33,10 @@ class PlacesList extends StatelessWidget {
             ),
           );
         },
+        leading: CircleAvatar(
+          radius: 24,
+          backgroundImage: FileImage(places[index].image),
+        ),
         title: Text(
           places[index].title,
           style: Theme.of(context)
