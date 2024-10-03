@@ -3,6 +3,7 @@ import 'dart:io';
 import 'package:favorite_places/models/place.dart';
 import 'package:favorite_places/providers/places_provider.dart';
 import 'package:favorite_places/widgets/image_input.dart';
+import 'package:favorite_places/widgets/location_input.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
@@ -19,7 +20,6 @@ class _AddPlaceScreenState extends ConsumerState<AddPlaceScreen> {
 
   final _titleController = TextEditingController();
   late List<Place> places;
-  var _title = '';
   var _isSendingTheData = false;
 
   void _saveItem() async {
@@ -42,7 +42,6 @@ class _AddPlaceScreenState extends ConsumerState<AddPlaceScreen> {
 
   @override
   void dispose() {
-    // TODO: implement dispose
     super.dispose();
     _titleController.dispose();
   }
@@ -75,12 +74,13 @@ class _AddPlaceScreenState extends ConsumerState<AddPlaceScreen> {
                   }
                   return null;
                 },
-                onSaved: (value) => _title = value!,
               ),
               const SizedBox(height: 10),
               ImageInput(
                 onTakeImage: (File image) => _selectedImage = image,
               ),
+              const SizedBox(height: 10),
+              LocationInput(),
               const SizedBox(height: 16),
               ElevatedButton.icon(
                 onPressed: _isSendingTheData ? null : _saveItem,
