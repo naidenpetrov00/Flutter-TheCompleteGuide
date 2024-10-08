@@ -1,5 +1,8 @@
+import 'dart:io';
+
 import 'package:favorite_places/screens/my_places_screen.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import 'package:google_fonts/google_fonts.dart';
@@ -27,7 +30,8 @@ final theme = ThemeData().copyWith(
     appBarTheme:
         const AppBarTheme().copyWith(backgroundColor: colorScheme.onSecondary));
 
-void main() {
+void main() async {
+  await dotenv.load(fileName: "assets/.env");
   runApp(
     const ProviderScope(
       child: MyApp(),
