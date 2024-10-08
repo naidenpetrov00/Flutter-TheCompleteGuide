@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:location/location.dart';
+import 'package:http/http.dart' as http;
 
 class LocationInput extends StatefulWidget {
   const LocationInput({super.key});
@@ -39,6 +40,14 @@ class _LocationInput extends State<LocationInput> {
       _isGettingLocation = true;
     });
     locationData = await location.getLocation();
+    final latitude = locationData.latitude;
+    final longitude = locationData.longitude;
+    // final apiKey = dotenv.env['GOOGLE_MAPS_API_KEY'];
+    print('apiKey');
+    // print(apiKey);
+    final url = Uri.parse(
+        'https://maps.googleapis.com/maps/api/geocode/json?latlng=$latitude,$longitude&key=YOUR_API_KEY');
+    http.get(url);
     setState(() {
       _isGettingLocation = false;
     });
