@@ -1,6 +1,7 @@
 import 'dart:io';
 
 import 'package:favorite_places/models/place.dart';
+import 'package:favorite_places/models/place_location.dart';
 import 'package:favorite_places/providers/places_provider.dart';
 import 'package:favorite_places/widgets/image_input.dart';
 import 'package:favorite_places/widgets/location_input.dart';
@@ -21,6 +22,7 @@ class _AddPlaceScreenState extends ConsumerState<AddPlaceScreen> {
   final _titleController = TextEditingController();
   late List<Place> places;
   var _isSendingTheData = false;
+  PlaceLocation? _selectedLocaion;
 
   void _saveItem() async {
     if (_formKey.currentState!.validate()) {
@@ -28,13 +30,16 @@ class _AddPlaceScreenState extends ConsumerState<AddPlaceScreen> {
         _isSendingTheData = true;
       });
       final enteredTitle = _titleController.text;
-      if (enteredTitle.isEmpty || _selectedImage == null) {
+      if (enteredTitle.isEmpty ||
+          _selectedImage == null ||
+          _selectedLocaion == null) {
         return;
       }
 
-      ref
-          .read(placesProvider.notifier)
-          .addPlace(title: enteredTitle, image: _selectedImage!);
+      ref.read(placesProvider.notifier).addPlace(
+          title: enteredTitle,
+          image: _selectedImage!,
+          location: _selectedLocaion!);
 
       Navigator.of(context).pop();
     }
@@ -80,7 +85,8 @@ class _AddPlaceScreenState extends ConsumerState<AddPlaceScreen> {
                 onTakeImage: (File image) => _selectedImage = image,
               ),
               const SizedBox(height: 10),
-              LocationInput(),
+              LocationInput(
+                  onSelectLocation: (location) => _selectedLocaion = location),
               const SizedBox(height: 16),
               ElevatedButton.icon(
                 onPressed: _isSendingTheData ? null : _saveItem,
