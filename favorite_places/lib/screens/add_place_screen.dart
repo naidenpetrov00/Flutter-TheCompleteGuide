@@ -92,7 +92,7 @@ class _AddPlaceScreenState extends ConsumerState<AddPlaceScreen> {
                 onPressed: _isSendingTheData ? null : _saveItem,
                 label: _isSendingTheData
                     ? const CircularProgressIndicator()
-                    : const Text('Add Item'),
+                    : const Text('Add Place'),
                 icon: const Icon(Icons.add),
               ),
             ],
