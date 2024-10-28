@@ -1,0 +1,30 @@
+{
+  "project_info": {
+    "project_number": "353153007048",
+    "firebase_url": "https://shoppinglist-2af1a-default-rtdb.europe-west1.firebasedatabase.app",
+    "project_id": "shoppinglist-2af1a",
+    "storage_bucket": "shoppinglist-2af1a.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:353153007048:android:68f5669a5a2134806c54fd",
+        "android_client_info": {
+          "package_name": "com.example.chat_app"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBTweKR0Wv-0l31zPpFyw1hnrxjLzHI6vw"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
