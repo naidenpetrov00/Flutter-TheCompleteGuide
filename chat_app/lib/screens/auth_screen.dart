@@ -1,4 +1,8 @@
+import 'package:chat_app/widgets/user_image_picker.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+
+final _firebase = FirebaseAuth.instance;
 
 class AuthScreen extends StatefulWidget {
   const AuthScreen({super.key});
@@ -13,13 +17,25 @@ class _AuthScreen extends State<AuthScreen> {
   var _enteredEmail = '';
   var _enteredPassword = '';
 
-  void _submit() {
+  void _submit() async {
     final isValid = _form.currentState!.validate();
 
-    if (isValid) {
-      _form.currentState!.save();
-      print(_enteredEmail);
-      print(_enteredPassword);
+    if (!isValid) return;
+
+    _form.currentState!.save();
+    UserCredential userCredentials;
+    try {
+      if (_isLoginMode) {
+        userCredentials = await _firebase.signInWithEmailAndPassword(
+            email: _enteredEmail, password: _enteredPassword);
+      } else {
+        userCredentials = await _firebase.createUserWithEmailAndPassword(
+            email: _enteredEmail, password: _enteredPassword);
+      }
+    } on FirebaseAuthException catch (error) {
+      ScaffoldMessenger.of(context).clearSnackBars();
+      ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(content: Text(error.message ?? "Authentication failed")));
     }
   }
 
@@ -50,6 +66,7 @@ class _AuthScreen extends State<AuthScreen> {
                         key: _form,
                         child: Column(
                           children: [
+                            if (!_isLoginMode) const UserImagePicker(),
                             TextFormField(
                               decoration: const InputDecoration(
                                   labelText: 'Email address'),
