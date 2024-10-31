@@ -1,5 +1,11 @@
 # Flutter-TheCompleteGuide
 
+[chat_app](./chat_app)
+
+![Register](https://github.com/user-attachments/assets/71488c37-5964-4fdf-9922-1987666f4084)    ![Chat](https://github.com/user-attachments/assets/d127b590-e5b2-4ebd-b293-0f5d02cc7f8b)
+
+![Notification](https://github.com/user-attachments/assets/4d9b2d44-8ad9-43c3-a12a-1240d604d730)
+
 [shopping list app:](./shopping_list_app)
 
 https://github.com/user-attachments/assets/a3a326b5-ed5b-4f18-9c5e-832f211d1f3d
